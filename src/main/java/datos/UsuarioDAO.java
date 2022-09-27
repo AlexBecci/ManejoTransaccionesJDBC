@@ -1,8 +1,7 @@
 package datos;
 
 import static datos.Conexion.*;
-import domain.IUsuario;
-import domain.Usuario;
+import domain.UsuarioDTO;
 import java.util.*;
 import java.sql.*;
 import java.util.logging.Level;
@@ -22,13 +21,13 @@ public class UsuarioDAO implements IUsuario {
     }
 
     @Override
-    public List<Usuario> SELECT() throws SQLException {
+    public List<UsuarioDTO> SELECT() throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet resulSet = null;
-        Usuario usuario = null;
+        UsuarioDTO usuario = null;
 
-        List<Usuario> usuarios = new ArrayList<>();
+        List<UsuarioDTO> usuarios = new ArrayList<>();
         try {
             conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
@@ -38,7 +37,7 @@ public class UsuarioDAO implements IUsuario {
                 String username = resulSet.getString("username");
                 String password = resulSet.getString("password");
 
-                usuario = new Usuario(idUsuario, username, password);
+                usuario = new UsuarioDTO(idUsuario, username, password);
                 usuarios.add(usuario);
             }
         } finally {
@@ -57,7 +56,7 @@ public class UsuarioDAO implements IUsuario {
     }
 
     @Override
-    public int INSERT(Usuario usuario) throws SQLException {
+    public int INSERT(UsuarioDTO usuario) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -86,7 +85,7 @@ public class UsuarioDAO implements IUsuario {
     }
 
     @Override
-    public int UPDATE(Usuario usuario) throws SQLException {
+    public int UPDATE(UsuarioDTO usuario) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -116,7 +115,7 @@ public class UsuarioDAO implements IUsuario {
     }
 
     @Override
-    public int DELETE(Usuario usuario) throws SQLException {
+    public int DELETE(UsuarioDTO usuario) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;

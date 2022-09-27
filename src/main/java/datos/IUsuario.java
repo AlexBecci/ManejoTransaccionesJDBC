@@ -1,5 +1,6 @@
-package domain;
+package datos;
 
+import domain.UsuarioDTO;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -10,12 +11,12 @@ public interface IUsuario {
     public static final String SQL_UPDATE = "UPDATE test.usuario SET username = ?, password = ? WHERE id_usuario = ?";
     public static final String SQL_DELETE = "DELETE from test.usuario WHERE id_usuario = ?";
 
-    public List<Usuario> SELECT() throws SQLException;
+    public List<UsuarioDTO> SELECT() throws SQLException;
 
-    public int UPDATE(Usuario usuario)throws SQLException;
+    public int UPDATE(UsuarioDTO usuario) throws SQLException;
 
-    public int INSERT(Usuario usuario)throws SQLException;
+    public int INSERT(UsuarioDTO usuario) throws SQLException;
 
-    public int DELETE(Usuario usuario)throws SQLException;
+    public int DELETE(UsuarioDTO usuario) throws SQLException;
 
 }

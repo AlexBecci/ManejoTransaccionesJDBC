@@ -1,4 +1,5 @@
 package test;
+
 import datos.UsuarioDAO;
 import datos.*;
 import domain.*;
@@ -15,20 +16,12 @@ public class TestManejoUsuarios {
             if (conexion.getAutoCommit()) {
                 conexion.setAutoCommit(false);
             }
-            UsuarioDAO usuarioJDBC = new UsuarioDAO(conexion);
+            IUsuario usuarioDao = new UsuarioDAO();
+            List<UsuarioDTO> usuarios = usuarioDao.SELECT();
 
-            Usuario cambioPersona = new Usuario();
-            cambioPersona.setIdUsuario(2);
-            cambioPersona.setUsername("CristianFlores");
-            cambioPersona.setPassword("Cris2019");
-            usuarioJDBC.UPDATE(cambioPersona);
-
-            Usuario usuarioNuevo = new Usuario();
-            usuarioNuevo.setUsername("SonGoku");
-            //usuarioNuevo.setPassword("GohanHijo11111111111111111111111111111111111111111111111111111111111111");
-            usuarioNuevo.setPassword("GohanHijo");
-            usuarioJDBC.INSERT(usuarioNuevo);
-
+            for (UsuarioDTO usuario : usuarios) {
+                System.out.println("Usuario DTO: " + usuario);
+            }
             conexion.commit();
             System.out.println("Se ha hecho commit de la transaccion");
         } catch (SQLException ex) {
